@@ -3,11 +3,15 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "TestApp": {
+    "FormWebApp": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
-          "strict": true
+          "strict": true,
+          "skipTests": true
+        },
+        "@schematics/angular:component": {
+          "skipTests": true
         }
       },
       "root": "",
@@ -15,9 +19,10 @@
       "prefix": "app",
       "architect": {
         "build": {
+          "defaultConfiguration": "development",
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/TestApp",
+            "outputPath": "www",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -25,14 +30,65 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*.svg",
+                "input": "node_modules/ionicons/dist/ionicons/svg",
+                "output": "./svg"
+              }
             ],
             "styles": [
-              "src/styles.css"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              {
+                "input": "node_modules/@ionic/angular/css/core.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/normalize.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/structure.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/typography.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/display.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/padding.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/float-elements.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/text-alignment.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/text-transformation.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/flex-utils.css"
+              },
+              {
+                "input": "src/theme/variables.css"
+              }
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -63,20 +119,24 @@
           }
         },
         "serve": {
+          "defaultConfiguration": "development",
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "TestApp:build"
+            "browserTarget": "FormWebApp:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "TestApp:build:production"
+              "browserTarget": "FormWebApp:build:production"
+            },
+            "development": {
+              "browserTarget": "FormWebApp:build:development"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "TestApp:build"
+            "browserTarget": "FormWebApp:build"
           }
         },
         "test": {
@@ -88,9 +148,15 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*.svg",
+                "input": "node_modules/ionicons/dist/ionicons/svg",
+                "output": "./svg"
+              }
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -113,16 +179,40 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "TestApp:serve"
+            "devServerTarget": "FormWebApp:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "TestApp:serve:production"
+              "devServerTarget": "FormWebApp:serve:production"
+            }
+          }
+        },
+        "ionic-cordova-serve": {
+          "builder": "@ionic/angular-toolkit:cordova-serve",
+          "options": {
+            "cordovaBuildTarget": "FormWebApp:ionic-cordova-build",
+            "devServerTarget": "FormWebApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "cordovaBuildTarget": "FormWebApp:ionic-cordova-build:production",
+              "devServerTarget": "FormWebApp:serve:production"
+            }
+          }
+        },
+        "ionic-cordova-build": {
+          "builder": "@ionic/angular-toolkit:cordova-build",
+          "options": {
+            "browserTarget": "FormWebApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "FormWebApp:build:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "TestApp"
+  "defaultProject": "FormWebApp"
 }

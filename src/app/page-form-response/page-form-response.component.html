@@ -1,0 +1,94 @@
+<body>
+
+    <div class="element-container">
+        
+        <h2> Liste des formulaires reçus :</h2>
+        <div class="list-header">
+            <mat-form-field >
+                <input matInput placeholder="Cherche par titre" 
+                style="width: 50%;" 
+                [formControl]="myControl"
+                autocomplete="off">
+                <button *ngIf="myControl.value" matSuffix mat-icon-button aria-label="Clear" (click)="myControl.setValue('')">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+            <mat-button-toggle-group [(ngModel)]="receptionFilter" class="option-langue" (ngModelChange)="onChange()">
+                <mat-button-toggle value="All" aria-label="Tout">
+                    Tout
+                </mat-button-toggle>
+                <mat-button-toggle value="NonRep" aria-label="Non repondue">
+                    Non repondue
+                </mat-button-toggle>
+                <mat-button-toggle value="Rep" aria-label="Repondue">
+                    Repondue
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+
+        <div class="element-list"
+        *ngIf="show">
+
+            <div
+            class="predefined-box" style="padding: 0;"
+            *ngFor="let reception of filteredOptions | async">
+
+                <button mat-button [style.background-color] = reception.backround [style.border] = reception.border
+                (click)="reception.reception.status == 0 ? formSelection(reception) : responseSelection(reception)" 
+                *ngIf="reload"    
+                class="predefined-box"
+                >
+                    <div class="form-title">{{reception.form!.name}}</div>
+                    <div class="form-date">{{reception.form!.date | date: 'mediumDate'}}</div>
+                    {{reception.reception.status}}
+                </button>
+        
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="form-preview-container" *ngIf="reload">
+
+        <div class="preview-header">
+            <div class="formTitle">{{formTitle}}</div>
+            <button mat-raised-button class="save" *ngIf="selectionDisplay" (click)="confirm(myDialog)">Envoyer</button>
+        </div>
+        <form action="" [dir]="formAlignment" class="from-preview" *ngIf="selectionDisplay">
+            <div *ngFor="let item of formPreview">
+                <app-form-element
+                [elementProperties] = "item"
+                [fNature] = "item.nature*(-1)"
+                [isDisabled] = false
+                class="form-element"
+                ></app-form-element>
+            </div>
+        </form>
+
+        <div class="from-preview" *ngIf="!selectionDisplay" [dir]="formAlignment">
+            <table>
+                <tr *ngFor="let answer of response">
+                    <th>{{answer.label}}</th>
+                    <td>{{answer.answer}}</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <ng-template #myDialog>
+        <h2 matDialogTitle>Confirmation:</h2>
+        <mat-dialog-content>
+            <section class="example-section">
+                Vos réponses ne peut pas etre modifier aprés. <br>
+                Vou etes sure d'envoyer ces réponses ?
+            </section>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button class="save" (click)="submitAnswer()">Confirmer</button>
+          <button mat-button matDialogClose color="warn">Annuler</button>
+        </mat-dialog-actions>
+      </ng-template>
+    
+</body>

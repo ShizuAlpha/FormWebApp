@@ -1,0 +1,10 @@
+{
+  "defaultProject": "FormWebApp",
+  "projects": {
+    "FormWebApp": {
+      "name": "FormWebApp",
+      "integrations": {},
+      "type": "angular"
+    }
+  }
+}

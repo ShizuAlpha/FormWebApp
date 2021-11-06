@@ -1,0 +1,127 @@
+<body>
+
+    <div class="element-container">
+        
+        <h2> Liste des formulaires :</h2>
+        <div class="list-header">
+            <mat-form-field >
+                <input matInput placeholder="Cherche par titre" 
+                style="width: 50%;" 
+                [formControl]="myControl"
+                autocomplete="off">
+                <button *ngIf="myControl.value" matSuffix mat-icon-button aria-label="Clear" (click)="myControl.setValue('')">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+
+        <div class="element-list"
+        *ngIf="showList">
+
+            <div
+            class="predefined-box" style="padding: 0;"
+            *ngFor="let form of filteredOptions | async">
+
+                <button mat-flat-button color="warn" class="delete-button" (click)="deleteConf(deleteConfirmation, form)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+
+                <button mat-button 
+                (click)="formSelection(form)" 
+                *ngIf="reload"    
+                class="predefined-box-content"
+                >
+                    <div class="form-title">{{form.name}}</div>
+                    <div class="form-date">{{form.date | date: 'mediumDate'}}</div>
+                </button>
+        
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="form-preview-container" *ngIf="reload&&showPrev">
+
+        <div class="preview-header">
+            <div class="formTitle">{{selectedForm.name}}</div>
+
+            <button mat-raised-button class="save" *ngIf="showForm" 
+            (click)="copy()">Crée une copie</button>
+            <button mat-raised-button class="save" *ngIf="!showForm" 
+            (click)="exportToExcel()">Télécharger</button>
+            <button mat-raised-button class="save" 
+            (click)="sendForm(myDialog)">Envoyer</button>
+            <button mat-raised-button class="save" *ngIf="!showForm" 
+            (click)="showForm = true">Voir le Formulaire</button>
+            <button mat-raised-button class="save" *ngIf="showForm" 
+            (click)="showForm = false">Voir les Réponse</button>
+        </div>
+
+        <div class="from-preview" *ngIf="!selectionDisplay&&!showForm">
+            No Answers
+        </div>
+
+        <div class="from-preview" *ngIf="selectionDisplay&&!showForm">
+            <table>
+                <tr>
+                    <th>Nom d'utilisateur</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th *ngFor="let item of responses[0].response">{{item.label}}</th>
+                </tr>
+                <tr *ngFor="let response of responses">
+                    <th>{{response.user!.username}}</th>
+                    <th>{{response.user!.firstName}}</th>
+                    <th>{{response.user!.lastName}}</th>
+                    <td *ngFor="let answer of response.response">{{answer.answer}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <form action="" [dir]="formAlignment" class="from-preview" 
+        *ngIf="(selectionDisplay&&showForm) || (!(selectionDisplay)&&showForm)">
+            <div *ngFor="let item of formPreview">
+                <app-form-element
+                [elementProperties] = "item"
+                [fNature] = "item.nature*(-1)"
+                [isDisabled] = false
+                class="form-element"
+                ></app-form-element>
+            </div>
+        </form>
+
+    </div>
+
+    <ng-template #myDialog>
+        <h2 matDialogTitle>Selectionner un utilisateur qui n'a pas déja reçu ce formulaire</h2>
+        <mat-dialog-content>
+            <section class="example-section" *ngIf="!noUsers">
+                <p *ngFor="let user of users">
+                    <mat-checkbox (change)="showOptions($event, user)" color="primary">{{user.username}}</mat-checkbox>
+                </p>
+            </section>
+            <section *ngIf="noUsers">
+                Pas d'utilisateurs qui respecte la condition
+            </section>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button class="save" (click)="send()"  *ngIf="!noUsers">Envoyer</button>
+          <button mat-button matDialogClose color="warn">Annuler</button>
+        </mat-dialog-actions>
+    </ng-template>
+
+    <ng-template #deleteConfirmation>
+        <h2 matDialogTitle>Etes vous sure de suprimer le formulaire : {{formToDelete.name}} ?</h2>
+        <mat-dialog-content>
+            <section>
+                La suppréssion du formulaire vas aussi supprimer les réponse non enregistrer sous format excel
+            </section>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button class="save" color="warn" (click)="deleteForm()"  matDialogClose>Suprimmer quand même</button>
+          <button mat-button matDialogClose >Annuler</button>
+        </mat-dialog-actions>
+    </ng-template>
+    
+</body>

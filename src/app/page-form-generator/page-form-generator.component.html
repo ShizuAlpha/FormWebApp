@@ -1,0 +1,109 @@
+<body>
+    
+    <div  class="element-container">
+        <div
+            id="preDefined"
+            cdkDropList
+            [cdkDropListData]="listPredefined"
+            cdkDropListConnectedTo="listForm"
+            class="element-list"
+            (cdkDropListDropped)="drop($event)"
+            [cdkDropListEnterPredicate]="noReturnPredicate">
+
+            <h2> Liste des entrées prédéfinie :</h2>
+
+            <div
+            class="predefined-box"
+            *ngFor="let element of listPredefined"
+            [cdkDragData]="element"
+            cdkDrag>
+        
+            <app-form-element 
+            [elementProperties]="element"
+            [fNature]="element.nature*(-1)" 
+            [isDisabled]="true"
+            ></app-form-element>
+
+            </div>
+
+        </div>
+
+        <div
+            id="saved"
+            cdkDropList
+            [cdkDropListData]="savedEntries"
+            cdkDropListConnectedTo="listForm"
+            class="saved-list"
+            (cdkDropListDropped)="drop($event)"
+            [cdkDropListEnterPredicate]="noReturnPredicate">
+
+            <h2>Liste des entrées sauvegarder :</h2>
+
+            <div
+            class="saved-box"
+            *ngFor="let element of savedEntries"
+            [cdkDragData]="element"
+            cdkDrag>
+
+            <div class="option-button">
+                <button mat-flat-button color="warn" class="delete-button" (click)="deleteSavedElement(element)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        
+            <app-form-element 
+            [elementProperties]="element"
+            [fNature]="element.nature*(-1)" 
+            [isDisabled]="true"
+            class="element-spacer"
+            ></app-form-element>
+
+            </div>
+        </div>
+    </div>
+
+    <div  class="form-list-container">
+        <div
+            id="listForm"
+            cdkDropList
+            [cdkDropListData]="listForm"
+            cdkDropListConnectedTo="[preDefined,saved]"
+            class="form-list"
+            (cdkDropListDropped)="drop($event)">
+
+            <h2>Liste des entrées utilisé :</h2>
+
+            <div
+            class="form-list-box"
+            *ngFor="let element of listForm"
+            cdkDrag
+            [cdkDragData]="element">
+
+            <div class="option-button">
+                <button mat-flat-button color="primary" class="delete-button" (click)="saveElement(element)">
+                    <mat-icon>save</mat-icon>
+                </button>
+                <button mat-flat-button color="warn" class="delete-button" (click)="deleteElement(element)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+
+            <app-form-element 
+            [elementProperties]="element"
+            [fNature]="element.nature"
+            [isDisabled]="true"
+            (outputEvent)="outputReciever($event)"
+            style="flex: 1 1 auto;"
+            ></app-form-element>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="form-preview-container">
+
+        <app-form-preview [formElementString]="formString"></app-form-preview>
+
+    </div>
+
+</body>

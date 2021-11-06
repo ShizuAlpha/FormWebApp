@@ -1,0 +1,25 @@
+<div class="card">
+    <div class="container">
+        <table class="container-fluid" *ngIf="show">
+            <tr>
+                <th>Nom d'utilisateur</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Terminal</th>
+                <th>Roles</th>
+            </tr>
+            <tr *ngFor="let user of users">
+                <td>{{user.username}}</td>
+                <td>{{user.firstName}}</td>
+                <td>{{user.lastName}}</td> 
+                <td>{{user.email}}</td> 
+                <td>{{user.terminal}}</td> 
+                <td>
+                    <div *ngFor="let role of user.roles">| {{role.name}} |</div>
+                </td> 
+                <td><button mat-button (click)="modifyUser(user)">Modifier</button></td> 
+            </tr>
+        </table>
+    </div>
+</div>

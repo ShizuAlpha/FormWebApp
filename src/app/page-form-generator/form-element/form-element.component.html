@@ -1,0 +1,414 @@
+<mat-expansion-panel  *ngIf="fNature == 1" hideToggle class="expantion-panel">
+
+    <mat-expansion-panel-header [collapsedHeight]="'100px'">
+
+      <mat-panel-title class="panel-title">
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label> {{elementProperties.label}}</mat-label>
+                <input matInput type="{{elementProperties.type}}" disabled="{{isDisabled}}">
+            </mat-form-field>
+
+      </mat-panel-title>
+
+      <mat-panel-description class="panel-description">
+        <div class="spacer"></div>
+        <mat-icon>settings</mat-icon>
+      </mat-panel-description>
+
+    </mat-expansion-panel-header>
+
+    <div class="input-options">
+    
+        <mat-form-field appearance="standard">
+            <mat-label> Label du donée :</mat-label>
+            <input matInput type="text" [(ngModel)]="elementProperties.label" 
+            (ngModelChange)="onChange()" 
+            (click)="onChange()">
+        </mat-form-field>
+
+        <mat-slide-toggle [(ngModel)]="elementProperties.required" (ngModelChange)="onChange()">Champ requit</mat-slide-toggle>
+    
+        <mat-form-field appearance="standard">
+            <mat-label> Type du donée :</mat-label>
+            <mat-select [(value)]="elementProperties.type"  (ngModelChange)="onChange()" (click)="onChange()">
+                <mat-option (click)="onChange()" value="text">Text</mat-option>
+                <mat-option (click)="onChange()" value="date">Date</mat-option>
+                <mat-option (click)="onChange()" value="datetime-local">Datetime-local</mat-option>
+                <mat-option (click)="onChange()" value="email">Email</mat-option>
+                <mat-option (click)="onChange()" value="tel">Telephone</mat-option>
+                <mat-option (click)="onChange()" value="number">Number</mat-option>
+                <mat-option (click)="onChange()" value="password">Password</mat-option>
+                <mat-option (click)="onChange()" value="range">Range</mat-option>
+                <mat-option (click)="onChange()" value="time">Time</mat-option>
+                <mat-option (click)="onChange()" value="week">Week</mat-option>
+              </mat-select>
+        </mat-form-field>
+    
+    </div>
+
+</mat-expansion-panel>
+
+<!-- -------------------------------------------------------------- -->
+
+<mat-expansion-panel  *ngIf="fNature == 2" hideToggle class="expantion-panel">
+
+    <mat-expansion-panel-header [collapsedHeight]="'100px'">
+
+      <mat-panel-title class="panel-title">
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label> {{elementProperties.label}}</mat-label>
+                <mat-select  disabled="{{isDisabled}}">
+                    <mat-option *ngFor="let selectEntrie of elementProperties.selectEntries" [value]="selectEntrie.value">
+                      {{selectEntrie.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+      </mat-panel-title>
+
+      <mat-panel-description class="panel-description">
+        <div class="spacer"></div>
+        <mat-icon>settings</mat-icon>
+      </mat-panel-description>
+
+    </mat-expansion-panel-header>
+
+    <div class="input-options">
+
+        <mat-form-field appearance="standard">
+            <mat-label> Label du donée :</mat-label>
+            <input matInput type="text" 
+            [(ngModel)]="elementProperties.label" 
+            (ngModelChange)="onChange()" 
+            (click)="onChange()">
+        </mat-form-field>
+
+        <mat-slide-toggle [(ngModel)]="elementProperties.required" (ngModelChange)="onChange()">Champ requit</mat-slide-toggle>
+        <mat-slide-toggle [(ngModel)]="elementProperties.multiple" (ngModelChange)="onChange()">Choix multiple</mat-slide-toggle>
+        
+        <div class="select-options">
+            <div class="select-entrie" *ngFor="let selectEntrie of elementProperties.selectEntries">
+                <mat-form-field appearance="standard">
+                    <mat-label> Valeur :</mat-label>
+                    <input matInput type="text" [(ngModel)]="selectEntrie.value" 
+                    (ngModelChange)="onChange()" 
+                    (click)="onChange()">
+                </mat-form-field>
+                <div class="select-row">
+                    <mat-form-field appearance="standard">
+                        <mat-label> Text à afficher :</mat-label>
+                        <input matInput type="text"  
+                        [(ngModel)]="selectEntrie.viewValue" 
+                        (ngModelChange)="onChange()" 
+                        (click)="onChange()">
+                    </mat-form-field>
+                    <button mat-icon-button color="primary" aria-label="Supprimer l'élément de la selection" 
+                    (click)="deleteFromSelect(selectEntrie)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button mat-icon-button color="primary" aria-label="Ajouter l'élément à la selection" (click)="addToSelect()">
+            <mat-icon>add</mat-icon>
+        </button>
+
+    </div>
+
+</mat-expansion-panel>
+
+<!-- -------------------------------------------------------------- -->
+
+<mat-expansion-panel *ngIf="fNature == 3" hideToggle class="expantion-panel">
+
+    <mat-expansion-panel-header [collapsedHeight]="'100px'">
+
+      <mat-panel-title class="panel-title">
+
+        <mat-form-field appearance="fill">
+            <mat-label> {{elementProperties.label}}</mat-label>
+            <textarea matInput  disabled="{{isDisabled}}"></textarea>
+        </mat-form-field>
+
+      </mat-panel-title>
+
+      <mat-panel-description class="panel-description">
+        <div class="spacer"></div>
+        <mat-icon>settings</mat-icon>
+      </mat-panel-description>
+
+    </mat-expansion-panel-header>
+
+    <div class="input-options">
+        <mat-form-field appearance="standard">
+            <mat-label> Label du donée :</mat-label>
+            <input matInput type="text" 
+            [(ngModel)]="elementProperties.label" 
+            (ngModelChange)="onChange()" 
+            (click)="onChange()">
+        </mat-form-field>
+
+        <mat-slide-toggle [(ngModel)]="elementProperties.required" (ngModelChange)="onChange()">Champ requit</mat-slide-toggle>
+    </div>
+
+</mat-expansion-panel>
+
+<!-- -------------------------------------------------------------- -->
+
+<mat-expansion-panel *ngIf="fNature == 4" hideToggle class="expantion-panel">
+
+    <mat-expansion-panel-header [collapsedHeight]="'100px'" class="panel-header-overflow">
+
+      <mat-panel-title class="panel-title">
+
+        <div class="text-display">
+            <p class="text-zone"
+            [style.font-size]="elementProperties.fontSize"
+            [style.font-weight]="elementProperties.fontWeight"
+            [style.text-align]="elementProperties.textAlign"
+            >{{elementProperties.label}}</p>
+        </div>
+
+      </mat-panel-title>
+
+      <mat-panel-description class="panel-description">
+        <div class="spacer"></div>
+        <mat-icon>settings</mat-icon>
+      </mat-panel-description>
+
+    </mat-expansion-panel-header>
+
+    <div class="input-options">
+
+        <div> Alignement du text :</div>
+        <mat-button-toggle-group [(ngModel)]="elementProperties.textAlign" 
+        (ngModelChange)="onChange()" 
+        (click)="onChange()">
+            <mat-button-toggle value="left" aria-label="Text align left">
+                <mat-icon>format_align_left</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="center" aria-label="Text align center">
+                <mat-icon>format_align_center</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="right" aria-label="Text align right">
+                <mat-icon>format_align_right</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="justify" aria-label="Text align justify">
+                <mat-icon>format_align_justify</mat-icon>
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <mat-form-field appearance="standard">
+            <mat-label> Poids du text :</mat-label>
+            <mat-select [(value)]="elementProperties.fontWeight" 
+            (ngModelChange)="onChange()" 
+            (click)="onChange()">
+                <mat-option (click)="onChange()" value="bold">bold</mat-option>
+                <mat-option (click)="onChange()" value="normal">normal</mat-option>
+                <mat-option (click)="onChange()" value="lighter">lighter</mat-option>
+              </mat-select>
+        </mat-form-field>
+        
+        <mat-form-field appearance="standard">
+            <mat-label> Taille du text :</mat-label>
+            <mat-select [(value)]="elementProperties.fontSize" (ngModelChange)="onChange()" (click)="onChange()">
+                <mat-option (click)="onChange()" value="xx-large">xx-large</mat-option>
+                <mat-option (click)="onChange()" value="x-large">x-large</mat-option>
+                <mat-option (click)="onChange()" value="larger">larger</mat-option>
+                <mat-option (click)="onChange()" value="large">large</mat-option>
+                <mat-option (click)="onChange()" value="medium">medium</mat-option>
+                <mat-option (click)="onChange()" value="small">small</mat-option>
+                <mat-option (click)="onChange()" value="smaller">smaller</mat-option>
+                <mat-option (click)="onChange()" value="x-small">x-small</mat-option>
+                <mat-option (click)="onChange()" value="xx-small">xx-small</mat-option>
+              </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard">
+            <mat-label> Text :</mat-label>
+            <textarea matInput [(ngModel)]="elementProperties.label" 
+            (ngModelChange)="onChange()" 
+            (click)="onChange()"></textarea>
+        </mat-form-field>
+
+    </div>
+
+</mat-expansion-panel>
+
+<!-- -------------------------------------------------------------- -->
+
+<mat-expansion-panel  *ngIf="fNature == 5" hideToggle class="expantion-panel">
+
+    <mat-expansion-panel-header [collapsedHeight]="'100px'" class="panel-header-overflow">
+
+      <mat-panel-title class="panel-title">
+
+            <div class="option-list">
+                <mat-label> {{elementProperties.label}}</mat-label>
+                <mat-radio-group   disabled="{{isDisabled}}">
+                  <mat-radio-button class="option-entrie" *ngFor="let selectEntrie of elementProperties.selectEntries" 
+                  [value]="selectEntrie.value">
+                    {{selectEntrie.viewValue}}
+                  </mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+      </mat-panel-title>
+
+      <mat-panel-description class="panel-description">
+        <div class="spacer"></div>
+        <mat-icon>settings</mat-icon>
+      </mat-panel-description>
+
+    </mat-expansion-panel-header>
+
+    <div class="input-options">
+
+        <mat-form-field appearance="standard">
+            <mat-label> Label du donée :</mat-label>
+            <input matInput type="text" 
+            [(ngModel)]="elementProperties.label" 
+            (ngModelChange)="onChange()" 
+            (click)="onChange()">
+        </mat-form-field>
+
+        <mat-slide-toggle [(ngModel)]="elementProperties.required" (ngModelChange)="onChange()">Champ requit</mat-slide-toggle>
+    
+        <div class="select-options">
+            <div class="select-entrie" *ngFor="let selectEntrie of elementProperties.selectEntries">
+                <mat-form-field appearance="standard">
+                    <mat-label> Valeur :</mat-label>
+                    <input matInput type="text" 
+                    [(ngModel)]="selectEntrie.value" 
+                    (ngModelChange)="onChange()" 
+                    (click)="onChange()">
+                </mat-form-field>
+                <div class="select-row">
+                    <mat-form-field appearance="standard">
+                        <mat-label> Text à afficher :</mat-label>
+                        <input matInput type="text"  
+                        [(ngModel)]="selectEntrie.viewValue" 
+                        (ngModelChange)="onChange()" 
+                        (click)="onChange()">
+                    </mat-form-field>
+                    <button mat-icon-button color="primary" aria-label="Supprimer l'élément de la selection" 
+                    (click)="deleteFromSelect(selectEntrie)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button mat-icon-button color="primary" aria-label="Ajouter l'élément à la selection" (click)="addToSelect()">
+            <mat-icon>add</mat-icon>
+        </button>
+
+    </div>
+
+</mat-expansion-panel>
+
+<!-- -------------------------------------------------------------- -->
+
+<mat-expansion-panel  *ngIf="fNature == 6" hideToggle class="expantion-panel">
+
+    <mat-expansion-panel-header [collapsedHeight]="'100px'" class="panel-header-overflow">
+
+      <mat-panel-title class="panel-title">
+
+            <div class="option-list">
+                  <mat-checkbox class="option-entrie" 
+                  disabled="{{isDisabled}}">
+                    {{elementProperties.label}}
+                  </mat-checkbox>
+            </div>
+
+      </mat-panel-title>
+
+      <mat-panel-description class="panel-description">
+        <div class="spacer"></div>
+        <mat-icon>settings</mat-icon>
+      </mat-panel-description>
+
+    </mat-expansion-panel-header>
+
+    <div class="input-options">
+
+        <mat-form-field appearance="standard">
+            <mat-label> Label du donée :</mat-label>
+            <input matInput type="text" 
+            [(ngModel)]="elementProperties.label" 
+            (ngModelChange)="onChange()" 
+            (click)="onChange()">
+        </mat-form-field>
+
+        <mat-slide-toggle [(ngModel)]="elementProperties.required" (ngModelChange)="onChange()">Champ requit</mat-slide-toggle>
+
+    </div>
+
+</mat-expansion-panel>
+
+<!-- -------------------------------------------------------------- -->
+
+<mat-form-field appearance="outline" *ngIf="fNature == -1" class="form-field">
+    <mat-label> {{elementProperties.label}}</mat-label>
+    <input matInput type="{{elementProperties.type}}" 
+    disabled="{{isDisabled}}" 
+    [required]="elementProperties.required"
+    [(ngModel)]="elementProperties.answer">
+</mat-form-field>
+
+<!-- -------------------------------------------------------------- -->
+
+<mat-form-field appearance="outline" *ngIf="fNature == -2" class="form-field">
+    <mat-label> {{elementProperties.label}}</mat-label>
+    <mat-select  disabled="{{isDisabled}}" 
+    [required]="elementProperties.required" 
+    [(ngModel)]="elementProperties.answer"
+    [multiple]="elementProperties.multiple">
+        <mat-option *ngFor="let selectEntrie of elementProperties.selectEntries" [value]="selectEntrie.value">
+          {{selectEntrie.viewValue}}
+        </mat-option>
+      </mat-select>
+</mat-form-field>
+
+<!-- -------------------------------------------------------------- -->
+
+<mat-form-field appearance="fill" *ngIf="fNature == -3">
+    <mat-label> {{elementProperties.label}}</mat-label>
+    <textarea matInput  disabled="{{isDisabled}}" [required]="elementProperties.required" [(ngModel)]="elementProperties.answer"></textarea>
+</mat-form-field>
+
+<!-- -------------------------------------------------------------- -->
+
+<div class="text-display"  *ngIf="fNature == -4">
+    <p class="text-zone"
+    [style.font-size]="elementProperties.fontSize"
+    [style.font-weight]="elementProperties.fontWeight"
+    [style.text-align]="elementProperties.textAlign"
+    >{{elementProperties.label}}</p>
+</div>
+
+<!-- -------------------------------------------------------------- -->
+
+<div *ngIf="fNature == -5" class="element-overflow">
+    <mat-label> {{elementProperties.label}}</mat-label>
+    <mat-radio-group   disabled="{{isDisabled}}" [required]="elementProperties.required" [(ngModel)]="elementProperties.answer">
+      <mat-radio-button  class="option-entrie" *ngFor="let selectEntrie of elementProperties.selectEntries" 
+      [value]="selectEntrie.value">
+        {{selectEntrie.viewValue}}
+      </mat-radio-button>
+    </mat-radio-group>
+</div>
+
+
+<div *ngIf="fNature == -6" class="element-overflow">
+      <mat-checkbox class="option-entrie" 
+      disabled="{{isDisabled}}" 
+      [required]="elementProperties.required" 
+      [(ngModel)]="elementProperties.answer"
+      [checked]="false"
+      >
+      {{elementProperties.label}}
+      </mat-checkbox>
+</div>

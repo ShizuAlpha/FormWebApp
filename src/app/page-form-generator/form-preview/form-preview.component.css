@@ -1,0 +1,91 @@
+body{
+    box-sizing: border-box;
+}
+
+.preview-header{ 
+    width: 100%; 
+    box-sizing: border-box; 
+    padding: 10px;
+    border-bottom: 1px solid red; 
+    display: flex; 
+    flex-direction: row;
+    justify-content: baseline; 
+    align-items: center; 
+}
+
+.option-langue{
+    height: 30px; 
+    align-items: center;
+}
+
+.form-title{
+    margin-left: 5px;
+    margin-right: 5px;
+    flex: 1 1 auto;
+}
+
+.save{
+    background-color: #f5f5f5;
+}
+
+.from-preview{
+    width: 100%; 
+    padding: 5%; 
+    box-sizing: border-box;
+}
+
+.form-element{
+    width: 100%;
+}
+
+/* width */
+::-webkit-scrollbar {
+width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+background: transparent; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #e7e9eb; 
+border-radius: 50px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: rgb(156, 156, 156); 
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+display: none;
+}
+
+/* Buttons */
+::-webkit-scrollbar-button:single-button {
+background-color: transparent;
+display: block;
+border-style: solid;
+height: 13px;
+width: 16px;
+}
+/* Up */
+::-webkit-scrollbar-button:single-button:vertical:decrement {
+border-width: 0 6px 6px 6px;
+border-color: transparent transparent #d2d3d3 transparent;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+border-color: transparent transparent rgb(156, 156, 156) transparent;
+}
+/* Down */
+::-webkit-scrollbar-button:single-button:vertical:increment {
+border-width: 6px 6px 0 6px;
+border-color: #d2d3d3 transparent transparent transparent;
+}
+
+::-webkit-scrollbar-button:vertical:single-button:increment:hover {
+border-color: rgb(156, 156, 156) transparent transparent transparent;
+}

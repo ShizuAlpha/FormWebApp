@@ -1,0 +1,48 @@
+<body>
+    <div class="preview-header">
+        <div> Alignement du text :</div>
+        <mat-button-toggle-group [(ngModel)]="formAlignment" class="option-langue">
+            <mat-button-toggle value="ltr" aria-label="Text align left">
+                Fr
+            </mat-button-toggle>
+            <mat-button-toggle value="rtl" aria-label="Text align right">
+                Ar
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+        <mat-form-field class="form-title">
+            
+            <input matInput type="text" [(ngModel)]="formTitle" (ngModelChange)="ngOnChanges()">
+        </mat-form-field>
+        <button mat-raised-button class="save" (click)="saveForm()">Enregitrer</button>
+        <button mat-raised-button class="save" (click)="sendForm(myDialog)">Envoyer</button>
+    </div>
+    <form action="" [dir]="formAlignment" class="from-preview">
+        <div *ngFor="let item of formPreview">
+            <app-form-element
+            [elementProperties] = "item"
+            [fNature] = "item.nature*(-1)"
+            [isDisabled] = false
+            class="form-element"
+            ></app-form-element>
+        </div>
+    </form>
+    
+    <ng-template #myDialog>
+        <h2 matDialogTitle>Selectionner un utilisateur qui n'a pas déja reçu ce formulaire</h2>
+        <mat-dialog-content>
+            <section class="example-section" *ngIf="!noUsers">
+                <p *ngFor="let user of users">
+                    <mat-checkbox (change)="showOptions($event, user)" color="primary">{{user.username}}</mat-checkbox>
+                </p>
+            </section>
+            <section *ngIf="noUsers">
+                Pas d'utilisateurs qui respecte la condition
+            </section>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button class="save" (click)="send()"  *ngIf="!noUsers">Envoyer</button>
+          <button mat-button matDialogClose color="warn">Annuler</button>
+        </mat-dialog-actions>
+    </ng-template>
+
+</body>

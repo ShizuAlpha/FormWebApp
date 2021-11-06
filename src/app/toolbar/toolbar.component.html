@@ -1,0 +1,23 @@
+<mat-toolbar>
+    <button class="logo" mat-button></button>*
+
+    <button mat-button [routerLink]="['/manageuser']" routerLinkActive="router-link-active" 
+    *ngIf="userAuthService.roleMatch(['ADMIN'])"
+    >Gestion des utilisateurs</button>
+
+    <button mat-button [routerLink]="['/createform']" routerLinkActive="router-link-active" 
+    *ngIf="userAuthService.roleMatch(['ADMIN', 'FORM_CREATOR'])"
+    >Créer une formulaire</button>
+
+    <button mat-button [routerLink]="['/manageform']" routerLinkActive="router-link-active" 
+    *ngIf="userAuthService.roleMatch(['ADMIN', 'FORM_CREATOR'])"
+    >Gestion des formulaires</button>
+
+    <button mat-button [routerLink]="['/answerform']" routerLinkActive="router-link-active" 
+    *ngIf="userAuthService.roleMatch(['ADMIN', 'FORM_CREATOR', 'FORM_READER'])"
+    >Répondre à un formulaire</button>
+
+    <span class="spacer"></span>
+    <button mat-raised-button color="primary" *ngIf="!isLoggedin()" [routerLink]="['/login']" routerLinkActive="router-link-active" >Se connecter</button>
+    <button mat-raised-button color="warn" *ngIf="isLoggedin()" (click)="logout()">Deconnecter</button>
+</mat-toolbar>

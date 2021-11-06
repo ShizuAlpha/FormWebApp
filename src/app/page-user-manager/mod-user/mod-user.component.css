@@ -1,0 +1,12 @@
+.tab{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    margin: 0;
+    padding: 4%;
+    width: 30vw;
+}

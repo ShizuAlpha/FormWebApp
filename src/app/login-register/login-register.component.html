@@ -1,0 +1,62 @@
+<div mat-dialog-content class="body">
+    <mat-tab-group dynamicHeight mat-stretch-tabs mat-align-tabs="center" [(selectedIndex)]="selectedTab" color="warn">
+        <mat-tab label="Se connecter">
+            <h1>Se connecter</h1>
+            <div class="tab">
+                <div class="container">
+                    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+                        <mat-form-field class="field" appearance="standard" floatLabel="always">
+                            <mat-label>Nom d'utilisateur</mat-label>
+                            <input matInput type="text" placeholder="Entrer votre Nom d'utilisateur" ngModel name="userName" id="userName">
+                            <mat-icon matPrefix>person</mat-icon>
+                        </mat-form-field>
+                        <mat-form-field class="field" appearance="standard" floatLabel="always">
+                            <mat-icon matPrefix>lock</mat-icon>
+                            <mat-label>Mot se passe</mat-label>
+                            <input matInput type="password" placeholder="Entrer votre Mot se passe"  ngModel name="userPassword" id="userPassword">
+                        </mat-form-field>
+                        <button mat-flat-button color="accent"  type="submit" value="Se connecter" class="field">Se connecter</button>
+                    </form>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="S'inscrire">
+            <h1>S'inscrire</h1>
+            <div class="tab">
+            <div class="container">
+                <mat-form-field class="nameField" appearance="standard">
+                    <mat-label>Nom</mat-label>
+                    <input matInput placeholder="Entrer votre Nom" [(ngModel)]="fNameSup">
+                </mat-form-field>
+                <mat-form-field class="nameField" appearance="standard">
+                    <mat-label>Prénom</mat-label>
+                    <input matInput placeholder="Entrer votre Prénom" [(ngModel)]="lNameSup">
+                </mat-form-field>
+                <mat-form-field class="nameField" appearance="standard">
+                    <mat-label>Nom d'utilisateur</mat-label>
+                    <input matInput placeholder="Entrer votre Nom d'utilisateur" [(ngModel)]="usernameSup">
+                </mat-form-field>
+                <mat-form-field class="field" appearance="standard">
+                    <mat-label>Adresse Email</mat-label>
+                    <input matInput type="email" placeholder="Entrer votre Adresse Email" [(ngModel)]="emailSup">
+                    <mat-hint>example@email.com</mat-hint>
+                </mat-form-field>
+                <mat-form-field class="nameField" appearance="standard">
+                    <mat-label>Terminal</mat-label>
+                    <input matInput placeholder="Entrer le nom de votre Terminal" [(ngModel)]="terminalSup">
+                </mat-form-field>
+                <mat-form-field class="field" appearance="standard">
+                    <mat-label>Mot de passe</mat-label>
+                    <input matInput type="password" placeholder="Entrer votre Mot se passe" [(ngModel)]="passSup">
+                </mat-form-field>
+                <mat-form-field class="field" appearance="standard">
+                    <mat-label>Confirmer votre mot de passe</mat-label>
+                    <input matInput type="password" placeholder="Re-entrer notre Mot de passe" [(ngModel)]="passconfSup">
+                </mat-form-field>
+                <button mat-flat-button color="accent" type="submit" class="field" (click)="signup()">S'inscrire</button>
+            </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+
+</div>
