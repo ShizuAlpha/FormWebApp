@@ -1,0 +1,10 @@
+ng add @angular/material
+npm install -g @angular/cli
+npm install
+npm install -g ngx
+npm install --save ngx-webstorage
+npm install ngx-toastr --save
+npm install bootstrap jquery
+ng add @ionic/angular
+npm install -g cordova
+npm install -g ionic
